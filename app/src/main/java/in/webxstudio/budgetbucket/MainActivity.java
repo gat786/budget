@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 while (i<5){
                     int random=randomGetter();
                     saver.addData(getApplicationContext(),random,date,"nothing","FOOD");
-                    rand.append(random);
+                    rand.append(" ").append(random);
                     i=i+1;
                 }
                 generatedView.setText(rand.toString());

@@ -1,5 +1,7 @@
 package in.webxstudio.budgetbucket;
 
+import android.support.annotation.NonNull;
+
 public class BudgetModel {
     private int expense;
     private String typeExpense,expenseData,expenseNote;
@@ -42,5 +44,11 @@ public class BudgetModel {
 
     public void setExpenseNote(String expenseNote) {
         this.expenseNote = expenseNote;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "expense is "+expense+" date is "+expenseData+" type is "+typeExpense+" note is "+expenseNote;
     }
 }

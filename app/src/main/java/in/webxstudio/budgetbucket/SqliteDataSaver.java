@@ -9,6 +9,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+//todo here you have to change all the entries such as column name and table name according to your need
+
 public class SqliteDataSaver extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
@@ -21,19 +23,26 @@ public class SqliteDataSaver extends SQLiteOpenHelper {
     private int expenseIndex,typeIndex,dateIndex,noteIndex;
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + DatabaseColumns.TABLE_NAME+"("+DatabaseColumns.COLUMN_NAME_EXPENSE+" INT, "+DatabaseColumns.COLUMN_NAME_TYPE+" TEXT, "+DatabaseColumns.COLUMN_DATE+" TEXT, "+DatabaseColumns.COLUMN_NOTE+" TEXT);";
+            "CREATE TABLE " + DatabaseColumns.TABLE_NAME+"("+DatabaseColumns.COLUMN_NAME_EXPENSE+" INT, " +
+                    ""+DatabaseColumns.COLUMN_NAME_TYPE+" TEXT, "+DatabaseColumns.COLUMN_DATE+" TEXT, "+DatabaseColumns.COLUMN_NOTE+" TEXT);";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + DatabaseColumns.TABLE_NAME;
+
+
 
     SqliteDataSaver(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -41,10 +50,14 @@ public class SqliteDataSaver extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db,oldVersion,newVersion);
     }
+
+
 
 
     //TODO send date here in YYYY-MM-DD format like 2016-10-14 or 2018-08-15
@@ -63,8 +76,12 @@ public class SqliteDataSaver extends SQLiteOpenHelper {
         long newRowId = db.insert(DatabaseColumns.TABLE_NAME, null, values);
 
         Log.d(TAG, "addData: data saved");
+        //this returns -1 if there occurred any error
+        //if there was no error it returns entry's table entry number
         return newRowId == -1;
     }
+
+
 
     ArrayList<BudgetModel> getData(Context context){
         ArrayList<BudgetModel> data = new ArrayList<>();
@@ -89,10 +106,14 @@ public class SqliteDataSaver extends SQLiteOpenHelper {
         cursor.close();
 
         db.close();
-
+        //this returns all the values that are currently present in the table
         return data;
     }
 
+
+    //you have to pass year as well as month of which you want to get data
+    //month should be from 01 - 12
+    //year should be like 2009 or 2018 or 2006
     int getMonthlyTotal(Context context , int month, int year){
         int data=0;
 
